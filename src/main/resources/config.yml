@@ -1,0 +1,52 @@
+# GBank Configuration File
+
+# Storage Settings
+storage:
+  # Available types: json, mysql, mongodb
+  type: json
+  
+  # MySQL Settings (if using mysql)
+  mysql:
+    host: localhost
+    port: 3306
+    database: gbank
+    username: root
+    password: password
+    ssl: false
+
+  # MongoDB Settings (if using mongodb)
+  mongodb:
+    uri: mongodb://localhost:27017
+    database: gbank
+
+  # JSON Settings (if using json)
+  json:
+    save-interval: 300 # Save data every 5 minutes
+
+# Currency Settings
+currencies:
+  usd:
+    display-name: "US Dollars"
+    display-material: DIAMOND
+    symbol: "$"
+    slot: 10
+
+  eur:
+    display-name: "Euro"
+    display-material: EMERALD
+    symbol: "€"
+    slot: 12
+
+  gbp:
+    display-name: "British Pounds"
+    display-material: GOLD_INGOT
+    symbol: "£"
+    slot: 14
+
+# Default currency used when none is specified
+default-currency: usd
+
+# Transaction Settings
+transactions:
+  audit-history-limit: 50
+  log-failed: true

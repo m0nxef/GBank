@@ -1,0 +1,75 @@
+name: mBank
+version: '1.0'
+main: org.monxef.gbank.GBank
+api-version: '1.21'
+description: A comprehensive banking plugin with multiple currency support and transaction logging
+author: Monxef
+website: https://github.com/monxef/mBank
+
+softdepend: [Vault]
+loadbefore: []
+
+commands:
+  balance:
+    description: View your balance or another player's balance
+    usage: |
+      /<command> - View your balance GUI
+      /<command> <currency> - View your balance for specific currency
+      /<command> <player> - View another player's balance
+      /<command> <player> <currency> - View another player's balance for specific currency
+    aliases: [bal, money]
+    permission: gbank.balance
+    
+  pay:
+    description: Send money to another player
+    usage: /<command> <player> <currency> <amount>
+    aliases: [send, transfer]
+    permission: gbank.pay
+    
+  gbank:
+    description: Administrative commands for GBank
+    usage: |
+      /<command> give <player> <amount> <currency> - Give money to a player
+      /<command> take <player> <amount> <currency> - Take money from a player
+      /<command> set <player> <amount> <currency> - Set a player's balance
+      /<command> reset <player> [currency] - Reset a player's balance
+      /<command> transfer <from> <to> <amount> <currency> - Transfer money between players
+      /<command> audit <player> [limit] [currency] - View transaction history
+      /<command> reload - Reload plugin configuration
+      /<command> maintenance - Toggle maintenance mode
+    aliases: [bank, gb]
+    permission: gbank.admin
+
+permissions:
+  gbank.*:
+    description: Gives access to all GBank commands
+    default: op
+    children:
+      gbank.admin: true
+      gbank.balance: true
+      gbank.balance.others: true
+      gbank.pay: true
+      gbank.audit: true
+      
+  gbank.admin:
+    description: Allows access to administrative commands
+    default: op
+    children:
+      gbank.balance.others: true
+      gbank.audit: true
+      
+  gbank.balance:
+    description: Allows checking own balance
+    default: true
+    
+  gbank.balance.others:
+    description: Allows checking other players' balances
+    default: op
+    
+  gbank.pay:
+    description: Allows sending money to other players
+    default: true
+    
+  gbank.audit:
+    description: Allows viewing transaction history
+    default: op

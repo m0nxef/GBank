@@ -1,0 +1,23 @@
+# Essential Messages
+prefix: "&7[&6GBank&7] "
+no_permission: "{prefix}&cYou don't have permission to use this command"
+player_not_found: "{prefix}&cPlayer not found"
+invalid_amount: "{prefix}&cInvalid amount"
+insufficient_funds: "{prefix}&cInsufficient funds"
+
+# GUI Messages
+balance-gui-title: "Balance Overview"
+
+# Transaction Messages
+admin:
+  give_success: "{prefix}&aYou have given {amount} {currency} to {player}"
+  take_success: "{prefix}&aYou have taken {amount} {currency} from {player}"
+  set_success: "{prefix}&aYou have set {player}'s balance to {amount} {currency}"
+  transfer_success: "{prefix}&aTransferred {amount} {currency} from {from} to {to}"
+
+player:
+  received_admin_payment: "{prefix}&aYou have received {amount} {currency} from an admin"
+  money_taken_by_admin: "{prefix}&cAn admin has taken {amount} {currency} from your account"
+  balance_set_by_admin: "{prefix}&eYour balance has been set to {amount} {currency} by an admin"
+  money_transferred_from: "{prefix}&c{amount} {currency} has been transferred to {player}"
+  money_transferred_to: "{prefix}&aYou have received {amount} {currency} from {player}"
