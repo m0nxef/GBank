@@ -33,18 +33,15 @@ public class BalanceCommand implements CommandExecutor {
 
         // Handle command formats
         if (args.length == 0) {
-            // Show own balance GUI
             showBalanceGUI((Player) sender);
             return true;
         }
 
         if (args.length == 1) {
-            // Check other player's balance
             checkPlayerBalance(sender, args[0]);
             return true;
         }
 
-        // Invalid usage
         sender.sendMessage(MessagesUtils.getMessage("balance-usage"));
         return true;
     }
@@ -58,7 +55,6 @@ public class BalanceCommand implements CommandExecutor {
         UUID targetId = target != null ? target.getUniqueId() : null;
 
         if (targetId == null) {
-            // Try to load from offline player data
             try {
                 targetId = Bukkit.getOfflinePlayer(targetPlayer).getUniqueId();
             } catch (Exception e) {
@@ -75,19 +71,15 @@ public class BalanceCommand implements CommandExecutor {
                     }
 
                     PlayerProfile profile = optionalProfile.get();
-                    // Show all currencies and their balances in the GUI
                     if (sender instanceof Player) {
                         new BalanceGUI(plugin, (Player) sender).open();
                     } else {
-                        // For console, show text-based summary
                         sendBalanceSummary(sender, targetPlayer, profile);
                     }
                 });
     }
 
     private void sendBalanceSummary(CommandSender sender, String targetPlayer, PlayerProfile profile) {
-        // Implementation for showing text-based balance summary to console
-        // This would iterate through all currencies and show their balances
         sender.sendMessage(MessagesUtils.getMessage("balance_summary_header", "player", targetPlayer));
         profile.getBalances().forEach((currency, amount) -> {
             sender.sendMessage(MessagesUtils.getMessage("balance_summary_line",

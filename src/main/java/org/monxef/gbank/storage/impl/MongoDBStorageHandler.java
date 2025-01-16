@@ -26,7 +26,6 @@ public class MongoDBStorageHandler implements StorageHandler {
         this.profiles = database.getCollection("profiles");
         this.transactions = database.getCollection("transactions");
 
-        // Create indexes
         profiles.createIndex(new Document("uuid", 1));
         transactions.createIndex(new Document("playerId", 1).append("currency", 1).append("timestamp", -1));
     }

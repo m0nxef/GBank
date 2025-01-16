@@ -20,7 +20,6 @@ public class CurrenciesManager {
     private Currency defaultCurrency;
     public void loadAll() {
         YamlConfigLoader config = ConfigWrapper.valueOf(ConfigurationType.DEFAULT);
-        // Load currencies from config
         if (config.getConfig().contains("currencies")) {
             for (String key : config.getConfig().getConfigurationSection("currencies").getKeys(false)) {
                 String displayName = config.getString("currencies." + key + ".display-name");

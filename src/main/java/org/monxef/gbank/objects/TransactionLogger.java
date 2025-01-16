@@ -20,7 +20,6 @@ public class TransactionLogger {
 
     private StorageHandler initializeStorage() {
         String storageType = plugin.getConfig().getString("transaction_history.storage", "SAME");
-        // Initialize separate storage based on main config structure
         String mainStorageType = plugin.getConfig().getString("storage.type", "json");
 
         return switch (mainStorageType.toLowerCase()) {

@@ -46,14 +46,9 @@ public class GBank extends JavaPlugin {
 
         transactionLogger = new TransactionLogger(this);
         prefix = ConfigWrapper.valueOf(ConfigurationType.MESSAGE).getString("prefix");
-        // Initialize configurations
         saveDefaultConfig();
-
-        // Initialize storage
         initializeStorage();
 
-
-        // Start automatic payment task
         startAutomaticPayments();
 
         new PluginLoadingTask().run();

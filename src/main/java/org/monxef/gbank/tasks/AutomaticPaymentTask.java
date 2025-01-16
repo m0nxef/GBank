@@ -26,7 +26,6 @@ public class AutomaticPaymentTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        // Get all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
             processPayment(player.getUniqueId());
         }
@@ -37,16 +36,11 @@ public class AutomaticPaymentTask extends BukkitRunnable {
         
         futureProfile.thenAccept(optionalProfile -> {
             PlayerProfile profile = optionalProfile.orElseGet(() -> new PlayerProfile(playerId));
-            
-            // Add the automatic payment amount
             profile.addBalance(defaultCurrency, amount);
             
-            // Save the updated profile
             plugin.getStorageHandler().saveProfile(profile).thenRun(() -> {
-                // Get the player (they might have gone offline)
                 Player player = Bukkit.getPlayer(playerId);
                 if (player != null && player.isOnline()) {
-                    // Send message to player about received payment
                     String message = ConfigWrapper.valueOf(ConfigurationType.MESSAGE).getConfig().getString("automatic_payment_received",
                         "You received {amount} {currency} from automatic payment!")
                         .replace("{amount}", String.format("%.2f", amount))

@@ -6,7 +6,7 @@ import org.monxef.gbank.enums.TransactionType;
 import org.monxef.gbank.storage.StorageHandler;
 
 import java.sql.ResultSet;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +31,6 @@ public class MySQLStorageHandler implements StorageHandler {
         config.setPassword(password);
         config.setMaximumPoolSize(10);
 
-        // Optionally, add additional SSL properties if needed
         if (useSsl) {
             config.addDataSourceProperty("sslMode", "REQUIRED");
             config.addDataSourceProperty("trustCertificateKeyStoreUrl", "file:/path/to/truststore.jks");
@@ -117,7 +116,6 @@ public class MySQLStorageHandler implements StorageHandler {
                 conn.setAutoCommit(false);
 
                 try {
-                    // Update profile
                     try (var stmt = conn.prepareStatement(
                             "INSERT INTO profiles (uuid, last_updated) VALUES (?, ?) " +
                                     "ON DUPLICATE KEY UPDATE last_updated = ?")) {
@@ -129,14 +127,12 @@ public class MySQLStorageHandler implements StorageHandler {
                         stmt.executeUpdate();
                     }
 
-                    // Delete existing balances
                     try (var stmt = conn.prepareStatement(
                             "DELETE FROM balances WHERE uuid = ?")) {
                         stmt.setString(1, profile.getPlayerId().toString());
                         stmt.executeUpdate();
                     }
 
-                    // Insert new balances
                     try (var stmt = conn.prepareStatement(
                             "INSERT INTO balances (uuid, currency, amount) VALUES (?, ?, ?)")) {
 

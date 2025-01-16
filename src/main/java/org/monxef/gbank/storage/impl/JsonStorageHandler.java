@@ -96,7 +96,6 @@ public class JsonStorageHandler implements StorageHandler {
             try (FileWriter writer = new FileWriter(transactionFile)) {
                 gson.toJson(transactions, writer);
                 
-                // Update cache
                 transactionCache.computeIfAbsent(playerId, k -> new ArrayList<>()).add(transaction);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,7 +106,6 @@ public class JsonStorageHandler implements StorageHandler {
     @Override
     public CompletableFuture<List<Transaction>> getTransactions(UUID playerId, String currency, int limit) {
         return CompletableFuture.supplyAsync(() -> {
-            // Check cache first
             if (transactionCache.containsKey(playerId)) {
                 List<Transaction> cachedTransactions = transactionCache.get(playerId);
                 return cachedTransactions.stream()
@@ -118,7 +116,6 @@ public class JsonStorageHandler implements StorageHandler {
             File transactionFile = new File(transactionsFolder, playerId.toString() + "_" + currency + ".json");
             List<Transaction> transactions = loadTransactionsFromFile(transactionFile);
             
-            // Update cache
             transactionCache.put(playerId, transactions);
             
             return transactions.stream()
@@ -142,7 +139,6 @@ public class JsonStorageHandler implements StorageHandler {
         }
     }
 
-    // Additional utility methods
     public void saveAll() {
         cache.values().forEach(profile -> {
             try {

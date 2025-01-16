@@ -112,10 +112,8 @@ public class BalanceGUI implements Listener {
             Currency currency = entry.getKey();
             double balance = entry.getValue();
 
-            // Get the configured slot for this currency
             int slot = currency.getSlot();
 
-            // Validate slot is within inventory bounds
             if (slot >= 0 && slot < INVENTORY_SIZE) {
                 createCurrencyDisplay(currency, balance, slot);
                 slotCurrencyMap.put(slot, currency);
